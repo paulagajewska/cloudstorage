@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS FILES (
     filesize VARCHAR,
     userid INT,
     filedata BLOB,
+    filedate DATE,
     foreign key (userid) references USERS(userid)
 );
 
@@ -34,3 +35,8 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS (
     userid INT,
     foreign key (userid) references USERS(userid)
 );
+
+-- EXAMPLE USER TO TEST
+INSERT INTO USERS
+VALUES (1, 'username','HkzyX7Vurp/f8SkULQ1Q2A==', '8cfj0pan6/PIZ/77Msz4yQ==', 'first_name', 'last_name' );
+

@@ -1,8 +1,13 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Data
+@AllArgsConstructor
 public class File {
     private Integer fileId;
     private String fileName;
@@ -10,4 +15,5 @@ public class File {
     private String fileSize;
     private Integer userId;
     private byte[] fileData;
+    private LocalDate fileDate;
 }
