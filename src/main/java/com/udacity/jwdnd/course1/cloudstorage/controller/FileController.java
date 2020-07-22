@@ -2,8 +2,10 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +25,10 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/file")
+@AllArgsConstructor
 public class FileController {
-    // private final String UPLOAD_DIR = "./uploads/";
     private final FileService fileService;
     private final UserMapper userMapper;
-
-    public FileController(FileService fileService, UserMapper userMapper) {
-        this.fileService = fileService;
-        this.userMapper = userMapper;
-    }
 
     @PostMapping("/upload")
     public String addFile(@RequestParam("fileUpload") MultipartFile file, Authentication authentication,
@@ -59,7 +56,7 @@ public class FileController {
     }
 
     @GetMapping("/delete/{file_id}")
-    public String deleteFile(@PathVariable(value = "file_id") Integer fileId, Authentication authentication, Model model){
+    public String deleteFile(@PathVariable(value = "file_id") Integer fileId, Authentication authentication, Model model) {
         User user = userMapper.getUser(authentication.getName());
         fileService.deleteFile(fileId);
         model.addAttribute("uploadedFiles", fileService.getAllFile(user.getUserId()));
