@@ -26,16 +26,24 @@ public class CredentialService {
         String encodeKey = Base64.getEncoder().encodeToString(key);
         String encryptedPassword = encryptionService.encryptValue(credentialForm.getPassword(), encodeKey);
         User user = userMapper.getUser(username);
-        Credential credential = new Credential(null, credentialForm.getUrl(), credentialForm.getUsername(), encodeKey, credentialForm.getPassword(), user.getUserId());
+        Credential credential = new Credential(
+                null,
+                credentialForm.getUrl(),
+                encryptedPassword,
+                encodeKey,
+                credentialForm.getPassword(),
+                user.getUserId());
+
         return credentialMapper.createCredential(credential);
     }
 
-    public List<Credential> getAllCredentials(String username){
+    public List<Credential> getAllCredentials(String username) {
         User user = userMapper.getUser(username);
+
         return credentialMapper.getAllCredentials(user.getUserId());
     }
 
-    public int deleteCredential(Integer credentialId){
+    public int deleteCredential(Integer credentialId) {
         return credentialMapper.deleteCredential(credentialId);
     }
 }

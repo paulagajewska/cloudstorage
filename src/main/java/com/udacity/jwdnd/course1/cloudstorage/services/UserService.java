@@ -26,7 +26,7 @@ public class UserService {
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
         String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
         User createdUser = new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstName(), user.getLastName());
-        System.out.println(createdUser);
+
         return userMapper.createUser(createdUser);
     }
 

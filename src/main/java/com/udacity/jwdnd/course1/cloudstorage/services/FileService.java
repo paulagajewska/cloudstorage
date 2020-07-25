@@ -30,7 +30,7 @@ public class FileService {
 
     public Boolean isUniqueName(String fileName, Integer userId) {
         List<File> files = getAllFile(userId);
-        System.out.println(files.stream().anyMatch(it -> it.getFileName().equals(fileName)));
+
         return !files.stream().anyMatch(it -> it.getFileName().equals(fileName));
     }
 }
