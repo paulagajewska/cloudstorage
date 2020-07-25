@@ -22,14 +22,16 @@ public class CredentialController {
     @PostMapping
     public String addCredential(@ModelAttribute(value = "credentialForm") CredentialForm credentialForm, Authentication authentication, Model model){
         credentialService.createCredential(credentialForm, authentication.getName());
-        model.addAttribute("addedCredentials", credentialService.getAllCredentials(authentication.getName()));
-        return "redirect:/home";
+        model.addAttribute("message", "SuccessAddCredential");
+
+        return "result";
     }
 
     @GetMapping("/delete/{credential_id}")
     public String deleteCredential(@PathVariable(value = "credential_id") Integer credentialId, Authentication authentication, Model model){
         credentialService.deleteCredential(credentialId);
-        model.addAttribute("addedCredentials", credentialService.getAllCredentials(authentication.getName()));
-        return "redirect:/home";
+        model.addAttribute("message", "SuccessDeleteCredential");
+
+        return "result";
     }
 }

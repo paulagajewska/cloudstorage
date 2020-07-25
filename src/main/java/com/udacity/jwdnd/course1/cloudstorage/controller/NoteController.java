@@ -21,28 +21,27 @@ public class NoteController {
 
     @PostMapping
     public String addNote(@ModelAttribute(value = "noteForm") NoteForm noteForm, Authentication authentication, Model model) {
-        System.out.println(noteForm);
         noteService.createNote(noteForm, authentication.getName());
-        model.addAttribute("addedNotes", noteService.getAllNote(authentication.getName()));
-        return "redirect:/home";
+        model.addAttribute("message", "SuccessAddNote");
+
+        return "result";
     }
 
     @GetMapping("/delete/{note_id}")
-    public String deleteFile(@PathVariable(value = "note_id") Integer noteId, Authentication authentication, Model model) {
+    public String deleteFile(@PathVariable(value = "note_id") Integer noteId, Model model) {
         noteService.deleteNote(noteId);
-        model.addAttribute("addedNotes", noteService.getAllNote(authentication.getName()));
-        return "redirect:/home";
+        model.addAttribute("message", "SuccessDeleteNote");
+
+        return "result";
     }
 
     @GetMapping("/edit/{note_id}")
-    public String editFile(@PathVariable(value = "note_id") Integer noteId, @ModelAttribute(value = "noteForm") NoteForm noteForm, Authentication authentication, Model model) {
+    public String editFile(@PathVariable(value = "note_id") Integer noteId, @ModelAttribute(value = "noteForm") NoteForm noteForm, Model model) {
         Note note = noteService.getNote(noteId);
-        System.out.println(note);
         note.setNoteDescription(noteForm.getDescription());
-        note.setNoteDescription(noteForm.getDescription());
-        System.out.println(note);
         noteService.updateNote(note);
-        model.addAttribute("addedNotes", noteService.getAllNote(authentication.getName()));
-        return "redirect:/home";
+        model.addAttribute("message", "SuccessUpdateNote");
+
+        return "result";
     }
 }

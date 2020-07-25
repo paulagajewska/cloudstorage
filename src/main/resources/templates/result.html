@@ -9,19 +9,51 @@
         <title>Result</title>
     </head>
     <body class="p-3 mb-2 bg-light text-black">
-        <div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
-            <div class="alert alert-success fill-parent">
+        <div class="container justify-content-center w-50 p-3" th:switch="${message}" style="margin-top: 5em;">
+            <div class="alert alert-success fill-parent" th:case="'SuccessAddFile'">
                 <h1 class="display-5">Success</h1>
-                <span>Your changes were successfully saved. Click <a>here</a> to continue.</span>
+                <span>Your file was successfully saved.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
             </div>
-            <div class="alert alert-danger fill-parent">
+            <div class="alert alert-danger fill-parent" th:case="'EmptyFile'">
                 <h1 class="display-5">Error</h1>
-                <span>Your changes were not saved. Click <a>here</a> to continue.</span>
+                <span>File can not be empty.</span>
+                <span>Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
-            <div class="alert alert-danger fill-parent">
+            <div class="alert alert-danger fill-parent" th:case="'NotUniqueFileName'">
                 <h1 class="display-5">Error</h1>
-                <span>Example Error Message</span>
-                <span>Click <a>here</a> to continue.</span>
+                <span>Sorry. You already add file with the same name.</span>
+                <span>Click <a th:href="@{/home}">here</a> to continue.</span>
+            </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessDeleteFile'">
+                <h1 class="display-5">Success</h1>
+                <span>Your file was successfully deleted.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
+            </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessAddNote'">
+                <h1 class="display-5">Success</h1>
+                <span>Your note was successfully saved.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
+            </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessUpdateNote'">
+                <h1 class="display-5">Success</h1>
+                <span>Your note was successfully updated.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
+            </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessDeleteNote'">
+                <h1 class="display-5">Success</h1>
+                <span>Your note was successfully deleted.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
+            </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessAddCredential'">
+                <h1 class="display-5">Success</h1>
+                <span>Your credential was successfully added.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
+            </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessDeleteCredential'">
+                <h1 class="display-5">Success</h1>
+                <span>Your credential was successfully deleted.</span>
+                <span>Click <a th:href="@{/home}" >here</a> to continue.</span>
             </div>
         </div>
     </body>

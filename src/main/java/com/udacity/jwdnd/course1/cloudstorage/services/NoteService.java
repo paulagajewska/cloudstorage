@@ -19,16 +19,17 @@ public class NoteService {
     public int createNote(NoteForm noteForm, String username) {
         User user = userMapper.getUser(username);
         Note note = new Note(null, noteForm.getTitle(), noteForm.getDescription(), user.getUserId());
-        System.out.println(note);
+
         return noteMapper.createNote(note);
     }
 
     public List<Note> getAllNote(String username) {
         User user = userMapper.getUser(username);
+
         return noteMapper.getAllNotes(user.getUserId());
     }
 
-    public int deleteNote(Integer noteId){
+    public int deleteNote(Integer noteId) {
         return noteMapper.deleteNote(noteId);
     }
 

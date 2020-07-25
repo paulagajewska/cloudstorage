@@ -2,7 +2,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
-import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import lombok.AllArgsConstructor;
@@ -31,15 +30,7 @@ public class FileController {
     private final UserMapper userMapper;
 
     @PostMapping("/upload")
-    public String addFile(@RequestParam("fileUpload") MultipartFile file, Authentication authentication,
-                          Model model) throws IOException {
-
-        if (file.isEmpty()) {
-//TODO add alert that file is empty
-        }
-        //TODO add alert that user can not add file with the same name
-        //TODO add alert that user can not add too big file
-
+    public String addFile(@RequestParam("fileUpload") MultipartFile file, Authentication authentication, Model model) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String contentType = file.getContentType();
         String fileSize = String.valueOf(file.getSize());
@@ -47,24 +38,33 @@ public class FileController {
 
         User user = userMapper.getUser(authentication.getName());
 
+        if (file.isEmpty()) {
+            model.addAttribute("message", "EmptyFile");
+            return "result";
+        }
+        if (!fileService.isUniqueName(fileName, user.getUserId())) {
+            model.addAttribute("message", "NotUniqueFileName");
+            return "result";
+        }
+        model.addAttribute("message", "SuccessAddFile");
+
         File createdFile = new File(null, fileName, contentType, fileSize, user.getUserId(), fileData, LocalDate.now());
-        System.out.println(createdFile);
+        System.out.println(file);
         fileService.createFile(createdFile);
 
-        model.addAttribute("uploadedFiles", fileService.getAllFile(user.getUserId()));
-        return "redirect:/home";
+        return "result";
     }
 
     @GetMapping("/delete/{file_id}")
-    public String deleteFile(@PathVariable(value = "file_id") Integer fileId, Authentication authentication, Model model) {
-        User user = userMapper.getUser(authentication.getName());
+    public String deleteFile(@PathVariable(value = "file_id") Integer fileId, Model model) {
         fileService.deleteFile(fileId);
-        model.addAttribute("uploadedFiles", fileService.getAllFile(user.getUserId()));
-        return "redirect:/home";
+        model.addAttribute("message", "SuccessDeleteFile");
+
+        return "result";
     }
 
     @GetMapping("/download/{file_id}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable(value = "file_id") Integer fileId, Authentication authentication, Model model) {
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable(value = "file_id") Integer fileId) {
         File file = fileService.getFile(fileId);
         byte[] data = file.getFileData();
         ByteArrayResource resource = new ByteArrayResource(data);

@@ -27,7 +27,7 @@ public class HomeController {
     @GetMapping()
     public String homeView(Authentication authentication, Model model) {
         User user = userService.getUser(authentication.getName());
-        System.out.println(user);
+
         model.addAttribute("uploadedFiles", fileService.getAllFile(user.getUserId()));
         model.addAttribute("addedNotes", noteService.getAllNote(user.getUsername()));
         model.addAttribute("addedCredentials", credentialService.getAllCredentials(user.getUsername()));
