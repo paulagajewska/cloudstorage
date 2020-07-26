@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Note {
-    private Integer noteId;
-    private String noteTitle;
-    private String noteDescription;
+    private Integer id;
+    private String title;
+    private String description;
     private Integer userId;
 }

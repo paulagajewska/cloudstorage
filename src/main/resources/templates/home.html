@@ -53,11 +53,11 @@
                                 <tbody>
                                 <tr th:each="uploadedFiles : ${uploadedFiles}">
                                     <td>
-                                        <a target="_blank" class="btn btn-success" th:href="@{/file/download/{file_id}(file_id=${uploadedFiles.fileId})}">View</a>
-                                        <a class="btn btn-danger" th:href="@{/file/delete/{file_id}(file_id=${uploadedFiles.fileId})}">Delete</a>
+                                        <a target="_blank" class="btn btn-success" th:href="@{/file/download/{file_id}(file_id=${uploadedFiles.id})}">View</a>
+                                        <a class="btn btn-danger" th:href="@{/file/delete/{file_id}(file_id=${uploadedFiles.id})}">Delete</a>
                                     </td>
-                                    <th scope="row" th:text="${uploadedFiles.fileName}"></th>
-                                    <th scope="row" th:text="${uploadedFiles.fileDate}"></th>
+                                    <th scope="row" th:text="${uploadedFiles.name}"></th>
+                                    <th scope="row" th:text="${uploadedFiles.saveDate}"></th>
                                     <th scope="row" th:text="${uploadedFiles.contentType}"></th>
 
                                 </tr>
@@ -82,13 +82,13 @@
                                 <tbody>
                                     <tr th:each="addedNotes : ${addedNotes}">
                                         <td>
-                                            //QUESTION 2. I don't know how to pass arguments to showNoteModal to be presented in window.
-                                            <button type="button" class="btn btn-success" th:href="@{/note/edit/{note_id}(note_id=${addedNotes.noteId})}"
-                                                    onclick="showNoteModal('${addedNotes.noteId}' ,'${addedNotes.noteTitle}','${addedNotes.noteDescription}')">Edit</button>
-                                            <a class="btn btn-danger" th:href="@{/note/delete/{note_id}(note_id=${addedNotes.noteId})}">Delete</a>
+<!--                                            //QUESTION 2. I don't know how to pass arguments to showNoteModal to be presented in window.-->
+                                            <button type="button" class="btn btn-success" th:href="@{/note/edit/{note_id}(note_id=${addedNotes.id})}"
+                                                    onclick="showNoteModal('${addedNotes.id}' ,'${addedNotes.title}','${addedNotes.description}')">Edit</button>
+                                            <a class="btn btn-danger" th:href="@{/note/delete/{note_id}(note_id=${addedNotes.id})}">Delete</a>
                                         </td>
-                                        <th scope="row" th:text="${addedNotes.noteTitle}"></th>
-                                        <td th:text="${addedNotes.noteDescription}"></td>
+                                        <th scope="row" th:text="${addedNotes.title}"></th>
+                                        <td th:text="${addedNotes.description}"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -145,7 +145,7 @@
                                 <tr th:each="addedCredentials : ${addedCredentials}">
                                     <td>
                                         <button type="button" class="btn btn-success">Edit</button>
-                                        <a class="btn btn-danger" th:href="@{/credential/delete/{credential_id}(credential_id=${addedCredentials.credentialId})}">Delete</a>
+                                        <a class="btn btn-danger" th:href="@{/credential/delete/{credential_id}(credential_id=${addedCredentials.id})}">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${addedCredentials.url}"></th>
                                     <td th:text="${addedCredentials.username}"></td>

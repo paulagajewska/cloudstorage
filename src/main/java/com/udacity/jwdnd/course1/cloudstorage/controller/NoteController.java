@@ -39,7 +39,7 @@ public class NoteController {
     @GetMapping("/edit/{note_id}")
     public String editFile(@PathVariable(value = "note_id") Integer noteId, @ModelAttribute(value = "noteForm") NoteForm noteForm, Model model) {
         Note note = noteService.getNote(noteId);
-        note.setNoteDescription(noteForm.getDescription());
+        note.setDescription(noteForm.getDescription());
         noteService.updateNote(note);
         model.addAttribute("message", "SuccessUpdateNote");
 

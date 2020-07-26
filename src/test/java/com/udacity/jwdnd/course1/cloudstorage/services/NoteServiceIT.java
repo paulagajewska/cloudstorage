@@ -24,8 +24,8 @@ class NoteServiceIT {
         List<Note> notes = noteService.getAllNote(username);
 
 
-        Assert.isTrue(notes.get(0).getNoteTitle() == noteForm.getTitle(), "Note title is incorrect");
-        Assert.isTrue(notes.get(0).getNoteDescription() == noteForm.getDescription(), "Note description is incorrect");
+        Assert.isTrue(notes.get(0).getTitle() == noteForm.getTitle(), "Note title is incorrect");
+        Assert.isTrue(notes.get(0).getDescription() == noteForm.getDescription(), "Note description is incorrect");
     }
 
     @Test
@@ -37,13 +37,13 @@ class NoteServiceIT {
         Note note = noteService.getNote(1);
         String updatedDescription = "updated_description";
         String updatedTitle = "updated_title";
-        note.setNoteDescription(updatedDescription);
-        note.setNoteTitle(updatedTitle);
+        note.setDescription(updatedDescription);
+        note.setTitle(updatedTitle);
         noteService.updateNote(note);
 
         Note updatedNote = noteService.getNote(1);
-        Assert.isTrue(updatedNote.getNoteDescription() == updatedDescription, "Updated description is incorrect");
-        Assert.isTrue(updatedNote.getNoteTitle() == updatedTitle, "Updated title is incorrect");
+        Assert.isTrue(updatedNote.getDescription() == updatedDescription, "Updated description is incorrect");
+        Assert.isTrue(updatedNote.getTitle() == updatedTitle, "Updated title is incorrect");
     }
 
     @Test
@@ -55,7 +55,7 @@ class NoteServiceIT {
         noteService.deleteNote(noteId);
         List<Note> notes = noteService.getAllNote(username);
 
-        Assert.isTrue(!notes.stream().anyMatch(it -> it.getNoteId() == noteId), "Note was not deleted");
+        Assert.isTrue(!notes.stream().anyMatch(it -> it.getId() == noteId), "Note was not deleted");
     }
 
 }
