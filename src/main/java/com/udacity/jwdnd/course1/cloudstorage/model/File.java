@@ -8,11 +8,11 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 public class File {
-    private Integer fileId;
-    private String fileName;
+    private Integer id;
+    private String name;
     private String contentType;
-    private String fileSize;
+    private String size;
     private Integer userId;
-    private byte[] fileData;
-    private LocalDate fileDate;
+    private byte[] data;
+    private LocalDate saveDate;
 }

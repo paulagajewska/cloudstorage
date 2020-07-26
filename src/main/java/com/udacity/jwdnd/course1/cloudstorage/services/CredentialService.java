@@ -29,9 +29,9 @@ public class CredentialService {
         Credential credential = new Credential(
                 null,
                 credentialForm.getUrl(),
-                encryptedPassword,
+                credentialForm.getUsername(),
                 encodeKey,
-                credentialForm.getPassword(),
+                encryptedPassword,
                 user.getUserId());
 
         return credentialMapper.createCredential(credential);
@@ -46,4 +46,6 @@ public class CredentialService {
     public int deleteCredential(Integer credentialId) {
         return credentialMapper.deleteCredential(credentialId);
     }
+
+    public Credential getCredential(Integer credentialId) { return credentialMapper.getCredential(credentialId);}
 }

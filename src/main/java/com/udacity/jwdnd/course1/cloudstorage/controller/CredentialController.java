@@ -1,7 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
-import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,7 +19,7 @@ public class CredentialController {
     private final CredentialService credentialService;
 
     @PostMapping
-    public String addCredential(@ModelAttribute(value = "credentialForm") CredentialForm credentialForm, Authentication authentication, Model model){
+    public String addCredential(@ModelAttribute(value = "credentialForm") CredentialForm credentialForm, Authentication authentication, Model model) {
         credentialService.createCredential(credentialForm, authentication.getName());
         model.addAttribute("message", "SuccessAddCredential");
 
@@ -28,7 +27,7 @@ public class CredentialController {
     }
 
     @GetMapping("/delete/{credential_id}")
-    public String deleteCredential(@PathVariable(value = "credential_id") Integer credentialId, Authentication authentication, Model model){
+    public String deleteCredential(@PathVariable(value = "credential_id") Integer credentialId, Model model) {
         credentialService.deleteCredential(credentialId);
         model.addAttribute("message", "SuccessDeleteCredential");
 

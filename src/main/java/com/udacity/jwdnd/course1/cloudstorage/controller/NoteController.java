@@ -35,6 +35,7 @@ public class NoteController {
         return "result";
     }
 
+
     @GetMapping("/edit/{note_id}")
     public String editFile(@PathVariable(value = "note_id") Integer noteId, @ModelAttribute(value = "noteForm") NoteForm noteForm, Model model) {
         Note note = noteService.getNote(noteId);

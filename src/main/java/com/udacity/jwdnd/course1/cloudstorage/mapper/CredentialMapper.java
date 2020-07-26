@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface CredentialMapper {
 
-    @Select("SELECT * FROM CREDENTIALS WHERE credentialid = #{credentialId}")
+    @Select("SELECT * FROM CREDENTIALS WHERE credentialid = #{id}")
     Credential getCredential(Integer credentialId);
 
     @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userId}")
@@ -20,9 +20,9 @@ public interface CredentialMapper {
 
     @Insert("INSERT INTO CREDENTIALS (url, username, key, password, userid)" +
             "VALUES(#{url}, #{username}, #{key}, #{password}, #{userId})")
-    @Options(useGeneratedKeys = true, keyProperty = "credentialId")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int createCredential(Credential credential);
 
-    @Delete("DELETE FROM CREDENTIALS WHERE credentialid = #{credentialId}")
+    @Delete("DELETE FROM CREDENTIALS WHERE credentialid = #{id}")
     int deleteCredential(Integer credentialId);
 }

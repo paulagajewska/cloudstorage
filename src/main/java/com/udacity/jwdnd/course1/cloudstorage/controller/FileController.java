@@ -49,7 +49,6 @@ public class FileController {
         model.addAttribute("message", "SuccessAddFile");
 
         File createdFile = new File(null, fileName, contentType, fileSize, user.getUserId(), fileData, LocalDate.now());
-        System.out.println(file);
         fileService.createFile(createdFile);
 
         return "result";
@@ -66,10 +65,10 @@ public class FileController {
     @GetMapping("/download/{file_id}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable(value = "file_id") Integer fileId) {
         File file = fileService.getFile(fileId);
-        byte[] data = file.getFileData();
+        byte[] data = file.getData();
         ByteArrayResource resource = new ByteArrayResource(data);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getFileName())
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
                 .contentLength(data.length)
                 .body(resource);
     }

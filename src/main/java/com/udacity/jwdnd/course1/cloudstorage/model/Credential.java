@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Credential {
-    private Integer credentialId;
+    private Integer id;
     private String url;
     private String username;
     private String key;

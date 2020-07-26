@@ -82,6 +82,7 @@
                                 <tbody>
                                     <tr th:each="addedNotes : ${addedNotes}">
                                         <td>
+                                            //QUESTION 2. I don't know how to pass arguments to showNoteModal to be presented in window.
                                             <button type="button" class="btn btn-success" th:href="@{/note/edit/{note_id}(note_id=${addedNotes.noteId})}"
                                                     onclick="showNoteModal('${addedNotes.noteId}' ,'${addedNotes.noteTitle}','${addedNotes.noteDescription}')">Edit</button>
                                             <a class="btn btn-danger" th:href="@{/note/delete/{note_id}(note_id=${addedNotes.noteId})}">Delete</a>
