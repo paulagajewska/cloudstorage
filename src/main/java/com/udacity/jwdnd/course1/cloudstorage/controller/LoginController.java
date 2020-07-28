@@ -15,7 +15,6 @@ public class LoginController {
     }
 
 
-    //QUESTION 1 - I have problem after log out to present dedicated message
     @PostMapping("/logout")
     public String logoutView() {
         return "redirect:/login?logout";
