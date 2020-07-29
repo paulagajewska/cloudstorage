@@ -46,7 +46,7 @@ class CredentialControllerIT {
     @WithMockUser(username = "username")
     @Test
     void createCredential() throws Exception {
-        CredentialForm form = new CredentialForm("url", "username", "password");
+        CredentialForm form = new CredentialForm(null, "url", "username", "password");
         User user = userService.getUser("username");
 
         mockMvc.perform(post("/credential")
@@ -64,7 +64,7 @@ class CredentialControllerIT {
     @WithMockUser(username = "username")
     @Test
     void deleteCredential() throws Exception {
-        CredentialForm form = new CredentialForm("url", "username", "password");
+        CredentialForm form = new CredentialForm(null, "url", "username", "password");
         Integer credentialId = credentialService.createCredential(form, "username");
 
         mockMvc.perform(get("/credential/delete/" + credentialId))

@@ -24,7 +24,7 @@ class CredentialServiceIT {
 
     @Test
     void createCredential() {
-        CredentialForm form = new CredentialForm("url", "username", "password");
+        CredentialForm form = new CredentialForm(null, "url", "username", "password");
         String username = "username";
 
         Integer id = credentialService.createCredential(form, username);
@@ -39,7 +39,7 @@ class CredentialServiceIT {
     void getAllCredentials() {
         User user = new User(null, "xusername", "xsalt", "xpassword", "xfirstName", "xlastName");
         userService.createUser(user);
-        CredentialForm form = new CredentialForm("url", "username", "password");
+        CredentialForm form = new CredentialForm(null, "url", "username", "password");
 
         credentialService.createCredential(form, user.getUsername());
         credentialService.createCredential(form, user.getUsername());
@@ -49,7 +49,7 @@ class CredentialServiceIT {
 
     @Test
     void deleteCredential() {
-        CredentialForm form = new CredentialForm("url", "username", "password");
+        CredentialForm form = new CredentialForm(null, "url", "username", "password");
         String username = "username";
 
         Integer id = credentialService.createCredential(form, username);

@@ -33,7 +33,9 @@ public class NoteService {
         return noteMapper.deleteNote(noteId);
     }
 
-    public int updateNote(Note note) {
+    public int updateNote(NoteForm noteForm, String username) {
+        User user = userMapper.getUser(username);
+        Note note = new Note(noteForm.getId(), noteForm.getTitle(), noteForm.getDescription(), user.getUserId());
         return noteMapper.updateNote(note);
     }
 

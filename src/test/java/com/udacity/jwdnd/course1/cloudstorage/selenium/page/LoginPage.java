@@ -13,6 +13,7 @@ public class LoginPage extends Page{
     private final By loginButton = By.id("login-button");
     private final By signUpLink = By.id("signup");
     private final By errorMessage = By.id("error-message");
+    private final By logoutMessage = By.id("logout-message");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -52,6 +53,15 @@ public class LoginPage extends Page{
 
     public String getErrorMessage(){
         WebElement element = findElement(errorMessage);
+        return element.getText();
+    }
+
+    public boolean isLogoutMessagedDisplayed(){
+        return findElement(logoutMessage).isDisplayed();
+    }
+
+    public String getLogoutMessage(){
+        WebElement element = findElement(logoutMessage);
         return element.getText();
     }
 }

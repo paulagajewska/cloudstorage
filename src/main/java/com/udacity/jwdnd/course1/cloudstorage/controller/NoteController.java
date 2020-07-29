@@ -1,6 +1,5 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import lombok.AllArgsConstructor;
@@ -21,8 +20,13 @@ public class NoteController {
 
     @PostMapping
     public String addNote(@ModelAttribute(value = "noteForm") NoteForm noteForm, Authentication authentication, Model model) {
-        noteService.createNote(noteForm, authentication.getName());
-        model.addAttribute("message", "SuccessAddNote");
+        if (noteForm.getId() != null) {
+            noteService.updateNote(noteForm, authentication.getName());
+            model.addAttribute("message", "SuccessUpdateNote");
+        } else {
+            noteService.createNote(noteForm, authentication.getName());
+            model.addAttribute("message", "SuccessAddNote");
+        }
 
         return "result";
     }
@@ -31,17 +35,6 @@ public class NoteController {
     public String deleteFile(@PathVariable(value = "note_id") Integer noteId, Model model) {
         noteService.deleteNote(noteId);
         model.addAttribute("message", "SuccessDeleteNote");
-
-        return "result";
-    }
-
-
-    @GetMapping("/edit/{note_id}")
-    public String editFile(@PathVariable(value = "note_id") Integer noteId, @ModelAttribute(value = "noteForm") NoteForm noteForm, Model model) {
-        Note note = noteService.getNote(noteId);
-        note.setDescription(noteForm.getDescription());
-        noteService.updateNote(note);
-        model.addAttribute("message", "SuccessUpdateNote");
 
         return "result";
     }

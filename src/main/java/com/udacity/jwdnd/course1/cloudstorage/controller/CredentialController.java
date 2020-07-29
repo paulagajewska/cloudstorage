@@ -20,8 +20,13 @@ public class CredentialController {
 
     @PostMapping
     public String addCredential(@ModelAttribute(value = "credentialForm") CredentialForm credentialForm, Authentication authentication, Model model) {
-        credentialService.createCredential(credentialForm, authentication.getName());
-        model.addAttribute("message", "SuccessAddCredential");
+        if (credentialForm.getId() != null) {
+            credentialService.updateCredential(credentialForm, authentication.getName());
+            model.addAttribute("message", "SuccessUpdateCredential");
+        } else {
+            credentialService.createCredential(credentialForm, authentication.getName());
+            model.addAttribute("message", "SuccessAddCredential");
+        }
 
         return "result";
     }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class NoteForm {
+    private Integer id;
     private String title;
     private String description;
 }

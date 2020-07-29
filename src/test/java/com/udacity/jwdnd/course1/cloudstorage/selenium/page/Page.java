@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.selenium.page;
 
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,12 +25,15 @@ abstract class Page {
         return webDriver.findElements(locator);
     }
 
+    @SneakyThrows
     public void waitUntilElementIsVisible(By locator) {
-        new WebDriverWait(webDriver, timeoutInSeconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
+        Thread.sleep(500);
+        new WebDriverWait(webDriver, timeoutInSeconds, 2*1000).until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public void typeValue(By locator, String text) {
         WebElement element = findElement(locator);
+        element.clear();
         element.sendKeys(text);
     }
 

@@ -55,6 +55,11 @@
                 <span name="message-text">Your credential was successfully deleted.</span>
                 <span>Click <a th:href="@{/home}" name="button">here</a> to continue.</span>
             </div>
+            <div class="alert alert-success fill-parent" th:case="'SuccessUpdateCredential'">
+                <h1 class="display-5">Success</h1>
+                <span name="message-text">Your credential was successfully updated.</span>
+                <span>Click <a th:href="@{/home}" name="button">here</a> to continue.</span>
+            </div>
         </div>
     </body>
 </html>

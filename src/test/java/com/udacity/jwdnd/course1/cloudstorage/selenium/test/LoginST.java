@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.selenium.page.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.selenium.page.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,18 +30,21 @@ public class LoginST {
     @BeforeAll
     public static void beforeAll() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-
     }
 
     @AfterAll
-    public static void afterAll() {
+    public static void cleanUp(){
         driver.quit();
-        driver = null;
+    }
+
+    @AfterEach
+    public void cleanUpEach() {
+        driver.close();
     }
 
     @BeforeEach
     public void beforeEach() {
+        driver = new ChromeDriver();
         baseURL = "http://localhost:" + port + "/login";
         loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
@@ -49,11 +53,14 @@ public class LoginST {
 
     @Test
     public void unauthorized_user_can_not_login() {
-        String errorMessage = "invalid username or password";
+        String errorMessage = "Invalid username or password";
         loginPage.loginUser("invalid_username", "inavlid_password");
 
         Assert.isTrue(loginPage.isErrorDisplayed(), "Error is not presented");
         Assert.isTrue(loginPage.getErrorMessage().contains(errorMessage), "Error message is incorrect");
+
+        String loginUrl = driver.getCurrentUrl();
+        Assert.isTrue(loginUrl.contains("/login"), "User was redirected to wrong page");
     }
 
     @Test
@@ -74,8 +81,11 @@ public class LoginST {
         homePage.waitUntilPageIsLoaded();
         homePage.logout();
         loginPage.waitUntilPageIsLoaded();
+        String errorMessage = "You have been logged out";
+        Assert.isTrue(loginPage.isLogoutMessagedDisplayed(), "Logout message is not presented");
+        Assert.isTrue(loginPage.getLogoutMessage().contains(errorMessage), "Logout message is incorrect");
+
         String loginUrl = driver.getCurrentUrl();
-        //TODO check correct message
         Assert.isTrue(loginUrl.contains("/login"), "User was redirected to wrong page");
     }
 

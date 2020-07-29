@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface CredentialMapper {
 
     @Delete("DELETE FROM CREDENTIALS WHERE credentialid = #{id}")
     int deleteCredential(Integer credentialId);
+
+    @Update("UPDATE CREDENTIALS SET url = #{url}, username = #{username}, key = #{key}, password = #{password} WHERE credentialid = #{id}")
+    int updateCredential(Credential credential);
 }
