@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CredentialController {
     private final CredentialService credentialService;
 
+    //QUESTION 2. The same as Question 1 I don't know if it's better way to add and edit (to split it to two endpoints)
     @PostMapping
     public String addCredential(@ModelAttribute(value = "credentialForm") CredentialForm credentialForm, Authentication authentication, Model model) {
         if (credentialForm.getId() != null) {

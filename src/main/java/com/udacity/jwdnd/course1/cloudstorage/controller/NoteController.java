@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NoteController {
     private final NoteService noteService;
 
+
+    //QUESTION 1. I don't know if it's better way to add and edit (to split it to two endpoints)
     @PostMapping
     public String addNote(@ModelAttribute(value = "noteForm") NoteForm noteForm, Authentication authentication, Model model) {
         if (noteForm.getId() != null) {

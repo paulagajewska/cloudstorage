@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.services;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialMapper;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
+import com.udacity.jwdnd.course1.cloudstorage.model.CredentialDto;
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -55,15 +57,31 @@ public class CredentialService {
         return credentialMapper.updateCredential(credential);
     }
 
-    public List<Credential> getAllCredentials(String username) {
+    public List<CredentialDto> getAllCredentials(String username) {
         User user = userMapper.getUser(username);
+        List<Credential> credentials = credentialMapper.getAllCredentials(user.getUserId());
+        return credentials.stream()
+                .map(credential -> mapToCredentialDto(credential))
+                .collect(Collectors.toList());
+    }
 
-        return credentialMapper.getAllCredentials(user.getUserId());
+    private CredentialDto mapToCredentialDto(Credential credential) {
+        return new CredentialDto(
+                credential.getId(),
+                credential.getUrl(),
+                credential.getUsername(),
+                decryptPassword(credential.getPassword(), credential.getKey()), credential.getPassword());
+    }
+
+    private String decryptPassword(String password, String key) {
+        return encryptionService.decryptValue(password, key);
     }
 
     public int deleteCredential(Integer credentialId) {
         return credentialMapper.deleteCredential(credentialId);
     }
 
-    public Credential getCredential(Integer credentialId) { return credentialMapper.getCredential(credentialId);}
+    public Credential getCredential(Integer credentialId) {
+        return credentialMapper.getCredential(credentialId);
+    }
 }
